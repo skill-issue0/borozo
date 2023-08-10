@@ -41,3 +41,21 @@ jobs:
           cmake . -Thost=x64 -DLLVM_TARGETS_TO_BUILD="X86;AArch64" -DLLVM_USE_CRT_RELEASE=MT -DBUILD_SHARED_LIBS=OFF -DCMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH=OFF -DLLVM_INCLUDE_BENCHMARKS=OFF -DLLVM_INCLUDE_TESTS=OFF -DLLVM_ENABLE_ZSTD=OFF
           cmake --build . --config Release
           cmake -DCMAKE_INSTALL_PREFIX=$(pwd)\llvm -P cmake_install.cmake
+          
+  x86_64-windows-test:
+    runs-on: windows-2022
+    needs: [x86_64-windows-llvm]
+    steps:
+      - name: Disable CRLF line ending substitution
+        run: |
+          git config --global core.autocrlf false
+
+      - name: Enable Developer Command Prompt
+        uses: ilammy/msvc-dev-cmd@cec98b9d092141f74527d0afa6feb2af698cfe89 # v1.12.1
+
+      - name: Restore LLVM
+        uses: actions/cache/restore@v3
+        with:
+          path: llvm
+          key: llvm-libs-16.0.3-msvc
+          fail-on-cache-miss: true
