@@ -16,7 +16,6 @@ jobs:
           path: llvm
           key: llvm-libs-16.0.3-msvc
           restore-keys: llvm-libs-16.0.3-msvc
-          fail-on-cache-miss: true
 
       - name: Download LLVM
         if: steps.cache-llvm.outputs.cache-hit != 'true'
