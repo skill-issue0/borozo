@@ -6,4 +6,6 @@ jobs:
   x86_64-windows-llvm:
     runs-on: windows-2022
     steps:
-      - run: ls
+      - run: chdir
+
+      - run: cd
