@@ -1,6 +1,6 @@
 name: Windows CI
 
-on: [push]
+on: [release]
 
 jobs:
   x86_64-windows-llvm:
