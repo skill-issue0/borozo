@@ -6,13 +6,19 @@ jobs:
   x86_64-windows-llvm:
     runs-on: windows-2022
     steps:
+      - name: Cache LLVM
+        id: cache-llvm
+        uses: actions/cache@v3
+        with:
+          path: $(pwd)\test
+          key: llvm-libs-16.0.3-msvc
+          
       - run: echo $(pwd)\llvm
       - run: mkdir test
+
+      - run: echo. > File2.txt
+        working-directory: test
 
       - run: echo ..\$(pwd)\llvm
         working-directory: ./test
 
-      - run: |
-          cd ..\$(pwd)\test
-          cd
-        working-directory: ./test
