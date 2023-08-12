@@ -49,12 +49,10 @@ jobs:
           ls
         working-directory: ./llvm-src
 
-
-
-
-
-
-
-
-
-
+      - run: |
+          $(pwd)
+          ls $(pwd)\llvm-src
+          
+      - run: |
+          $(pwd)
+          ls $(pwd)\llvm-src\llvm
