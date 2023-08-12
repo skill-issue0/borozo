@@ -16,7 +16,7 @@ jobs:
       - run: echo $(pwd)\llvm
       - run: mkdir test
 
-      - run: echo. > File2.txt
+      - run: New-Item text.txt
         working-directory: test
 
       - run: echo ..\$(pwd)\llvm
