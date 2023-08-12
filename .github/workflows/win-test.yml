@@ -7,3 +7,7 @@ jobs:
     runs-on: windows-2022
     steps:
       - run: echo $(pwd)\llvm
+      - run: mkdir test
+
+      - run: echo $(pwd)\llvm
+        working-directory: ./test
