@@ -11,3 +11,8 @@ jobs:
 
       - run: echo ..\$(pwd)\llvm
         working-directory: ./test
+
+      - run: |
+          cd ..\$(pwd)\test
+          cd
+        working-directory: ./test
