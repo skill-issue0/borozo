@@ -13,7 +13,7 @@ jobs:
         id: cache-llvm
         uses: actions/cache@v3
         with:
-          path: $(pwd)\llvm-src\llvm
+          path: $(pwd)\llvm-src
           key: llvm-libs-16.0.3-msvc
 
       - name: Download LLVM
