@@ -9,5 +9,5 @@ jobs:
       - run: echo $(pwd)\llvm
       - run: mkdir test
 
-      - run: echo $(pwd)\llvm
+      - run: echo ..\$(pwd)\llvm
         working-directory: ./test
