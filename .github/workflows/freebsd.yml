@@ -11,6 +11,9 @@ jobs:
         uses: vmactions/freebsd-vm@v0
         with:
           run: |
+            pkg install -y curl
+            pkg install -y sudo
+            pkg install -y git
             sudo pkg install llvm
             sudo pkg install llvm16
             llvm-config --version
