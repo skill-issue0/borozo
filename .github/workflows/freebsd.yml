@@ -1,17 +1,33 @@
-name: Run FreeBSD on GitHub Actions
+name: Create FreeBSD Image
 
 on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Install QEMU
-        run: sudo apt-get update && sudo apt-get install qemu-kvm
+        run: sudo apt-get update && sudo apt-get install -y qemu-utils
 
-      - name: Run FreeBSD
+      - name: Create FreeBSD Image
         run: |
-          qemu-system-x86_64 -m 2G -hda freebsd.qcow2 -net nic -net user -enable-kvm
+          # Download FreeBSD ISO
+          wget https://download.freebsd.org/ftp/releases/amd64/amd64/ISO-IMAGES/13.0/FreeBSD-13.0-RELEASE-amd64-disc1.iso -O freebsd.iso
+
+          # Create a qcow2 image
+          qemu-img create -f qcow2 freebsd.qcow2 20G
+
+          # Start a QEMU VM to install FreeBSD
+          qemu-system-x86_64 -m 2G -boot d -cdrom freebsd.iso -hda freebsd.qcow2
+
+          # Optionally, add post-installation setup steps here
+
+          # Shut down the VM
+          qemu-system-x86_64 -hda freebsd.qcow2 -no-reboot -poweroff
+
+          # Remove the ISO file
+          rm freebsd.iso
