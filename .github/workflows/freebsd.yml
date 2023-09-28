@@ -1,27 +1,25 @@
-
-name: Test
-
-on: [push]
-
+name: netbsd CI
+'on': push
 jobs:
-  test:
+  build:
     runs-on: macos-12
-    name: A job to run test in NetBSD
-    env:
-      MYTOKEN2: "value2"
     steps:
-    - uses: actions/checkout@v3
-    - name: Test in NetBSD
-      id: test
-      uses: vmactions/netbsd-vm@v0
-      with:
-        envs: 'MYTOKEN MYTOKEN2'
-        usesh: true
-        prepare: |
-          /usr/sbin/pkg_add curl
-
-        run: |
-          pwd
-          ls -lah
-          whoami
-          env
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: FreeBSD VM
+        id: vm
+        uses: vmactions/freebsd-vm@v0
+        with:
+          run: |
+            sudo pkg install llvm
+            sudo pkg install llvm16
+            llvm-config --version
+            clang --version
+            sudo pkg install curl git gcc gmake
+            git clone https://github.com/rust-lang/rust.git
+            cd rust
+            git checkout tags/1.72.0
+            ./configure --enable-extended
+            gmake
+            sudo gmake install
+            rustc --version
