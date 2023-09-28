@@ -10,19 +10,14 @@ jobs:
         id: vm
         uses: vmactions/freebsd-vm@v0
         with:
-          run: |
+          prepare: |
             pkg install -y curl
             pkg install -y sudo
-            pkg install -y git
+            pkg install -y gcc
+            pkg install -y rust
+          run: |
             sudo pkg install llvm
             sudo pkg install llvm16
             llvm-config --version
             clang --version
-            sudo pkg install curl git gcc gmake
-            git clone https://github.com/rust-lang/rust.git
-            cd rust
-            git checkout tags/1.72.0
-            ./configure --enable-extended
-            gmake
-            sudo gmake install
             rustc --version
