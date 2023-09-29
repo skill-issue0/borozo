@@ -10,14 +10,17 @@ jobs:
         id: vm
         uses: vmactions/freebsd-vm@v0
         with:
+          usesh: true
           prepare: |
             pkg install -y curl
             pkg install -y sudo
             pkg install -y gcc
-            pkg install -y rust
           run: |
             sudo pkg install llvm
             sudo pkg install llvm16
             llvm-config --version
             clang --version
+            curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs
+            sh ./sh.rustup.rs
             rustc --version
+

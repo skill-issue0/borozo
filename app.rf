@@ -1,0 +1,22 @@
+import std
+import os
+import time
+import exec
+
+@cfg(any(target_os = windows, target_os = linux))
+import binutil
+
+@cfg(target_os = macos)
+import binutil_macos
+
+fn execute -> Result[String, String] {
+    if target_os == "windows" || target_os == "linux" {
+        binutil.exec("echo") # this value is returned
+    }
+
+    binutil_macos.exec("echo") # this value is returned
+}
+
+fn main {
+    execute
+}
