@@ -3,13 +3,16 @@ name: netbsd CI
 jobs:
   build:
     runs-on: macos-12
-    steps:
+    env:
+        INPUT_RUST_VERSION: 1.72
+    steps:  
       - name: Checkout code
         uses: actions/checkout@v3
       - name: FreeBSD VM
         id: vm
         uses: vmactions/freebsd-vm@v0
         with:
+          envs: 'INPUT_RUST_VERSION'
           usesh: true
           prepare: |
             pkg install -y curl
@@ -19,11 +22,4 @@ jobs:
             sudo pkg install -y llvm16
             llvm-config --version
             clang --version
-            curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs
-            sh ./sh.rustup.rs
-            rustc --version
-  windows-test:
-    runs-on: windows-2022
-    steps:
-      - shell: bash
-        run: sudo apt-get install -y libpolly-16-dev
+            bash setup.sh
