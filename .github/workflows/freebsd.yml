@@ -16,11 +16,14 @@ jobs:
             pkg install -y sudo
             pkg install -y gcc
           run: |
-            sudo pkg install llvm
-            sudo pkg install llvm16
+            sudo pkg install -y llvm16
             llvm-config --version
             clang --version
             curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs
             sh ./sh.rustup.rs
             rustc --version
-
+  windows-test:
+    runs-on: windows
+    steps:
+      - shell: bash
+        run: clear
