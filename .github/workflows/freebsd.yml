@@ -23,7 +23,7 @@ jobs:
             sh ./sh.rustup.rs
             rustc --version
   windows-test:
-    runs-on: windows
+    runs-on: windows-2022
     steps:
       - shell: bash
         run: clear
