@@ -26,4 +26,4 @@ jobs:
     runs-on: windows-2022
     steps:
       - shell: bash
-        run: clear
+        run: sudo apt-get install -y libpolly-16-dev
