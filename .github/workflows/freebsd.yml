@@ -14,11 +14,5 @@ jobs:
         with:
           envs: 'INPUT_RUST_VERSION'
           usesh: true
-          prepare: |
-            pkg install -y curl
-            pkg install -y sudo
-            pkg install -y gcc
           run: |
-            sudo pkg install -y llvm16
-            llvm-config --version
-            clang --version
+            pkg search llvm
